@@ -31,6 +31,7 @@ public class RobotTemplate extends IterativeRobot
     private Driver driver;
     private Chassis chassis;
     
+    
     public void robotInit()
     {
         driver = Driver.getInstance();
@@ -86,8 +87,9 @@ public class RobotTemplate extends IterativeRobot
         
         //driver.printAxes();
         // System.out.println("Y: " + driver.getY() + " X: " + driver.getX() + " ROT: " + driver.getRot());
-        chassis.holoDrive( driver.getY() , driver.getX() , driver.getRot());
-       // Timer.delay( 0.5 );
+        //chassis.holoDrive( driver.getY() , driver.getX() , driver.getRot() );
+        Timer.delay( 0.5 );
+        chassis.printGyro();
     }
     
 }

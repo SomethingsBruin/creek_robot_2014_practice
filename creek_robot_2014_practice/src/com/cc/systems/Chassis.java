@@ -5,6 +5,7 @@
 package com.cc.systems;
 
 import com.cc.output.motors.CCTalon;
+import edu.wpi.first.wpilibj.Gyro;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Chassis
     private CCTalon rightForward;
     private CCTalon leftRear;
     private CCTalon rightRear;
+    private Gyro gyro;
             
     private Chassis()
     {
@@ -26,6 +28,7 @@ public class Chassis
         rightForward = new CCTalon ( 3, true );
         leftRear = new CCTalon ( 2, false );
         rightRear = new CCTalon ( 4, true );
+        gyro = new Gyro ( 1 );
     }
     
     public static Chassis getInstance()
@@ -68,9 +71,18 @@ public class Chassis
              rr /= maxVal;
          }
          
+         //System.out.println( "rf: " + rf + " lf: " + lf + " lr: " + lr + " rr: " + rr );
+         
          rightForward.set( rf );
          leftForward.set( lf );
          leftRear.set( lr );
          rightRear.set( rr );
+    }
+    
+    public void printGyro()
+    {
+        
+        System.out.println( gyro.getAngle() );
+        
     }
 }
