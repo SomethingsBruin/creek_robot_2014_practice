@@ -63,6 +63,7 @@ public class RobotTemplate extends IterativeRobot
         System.out.println("testInit");
         
     }
+    
     /**
      * This function is called periodically during autonomous
      */
@@ -84,12 +85,19 @@ public class RobotTemplate extends IterativeRobot
      */
     public void testPeriodic()
     {
+        //Normal x and y
+//        double fwd = driver.getY();
+//        double sld = driver.getX();
+        //Directionalized x and y
+       double sld = driver.getX() * Math.cos( chassis.getGyro() ) - driver.getY() * Math.sin( chassis.getGyro() );
+       double fwd = driver.getY() * Math.cos( chassis.getGyro() ) + driver.getX() * Math.sin( chassis.getGyro() );
         
-        //driver.printAxes();
+//        driver.printAxes();
         // System.out.println("Y: " + driver.getY() + " X: " + driver.getX() + " ROT: " + driver.getRot());
-        //chassis.holoDrive( driver.getY() , driver.getX() , driver.getRot() );
-        Timer.delay( 0.5 );
-        chassis.printGyro();
+       chassis.holoDrive( fwd, sld, driver.getRot() );
+       // chassis.printGyro();
+//        chassis.turnAngle( 90 );
+       
     }
     
 }

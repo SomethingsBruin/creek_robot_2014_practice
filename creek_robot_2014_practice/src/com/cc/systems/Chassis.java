@@ -5,6 +5,7 @@
 package com.cc.systems;
 
 import com.cc.output.motors.CCTalon;
+import com.cc.utility.Utility;
 import edu.wpi.first.wpilibj.Gyro;
 
 /**
@@ -79,10 +80,60 @@ public class Chassis
          rightRear.set( rr );
     }
     
+    public double getGyro()
+    {
+        double gyroValue = gyro.getAngle();
+        
+        if ( Math.abs( gyroValue ) >= 360)
+        {
+            gyro.reset();
+            gyroValue = gyro.getAngle();
+        }
+        gyroValue = Math.toRadians( gyroValue );
+        
+        return gyroValue;
+    }
+    
     public void printGyro()
     {
         
         System.out.println( gyro.getAngle() );
         
+    }
+    
+    public void turnAngle( double angleToTurn )
+    {
+        boolean done = false;
+        final double Kp = 0.4;
+        final double Ki = 0.004;
+        final double Kd = 0.04;
+        double error = 0;
+        double preError = 0;
+        double errorSum = 0;
+        
+        while( !done )
+        {
+            preError = error;
+            error = ( angleToTurn - Math.toDegrees( getGyro() ) ) / 100;
+            error = Utility.limitRange( error );
+            errorSum += error;
+            
+            double p = error * Kp;
+            double i = errorSum * Ki;
+            double d = ( preError - error ) * Kd;
+            
+            double output = Utility.limitRange( p + i + d );
+            
+            holoDrive( 0, 0, output );
+            
+            
+            if( Math.abs( error ) < 0.05 )
+            {
+                done = true;
+                System.out.println( "Done" );
+            }
+            
+            
+        }
     }
 }

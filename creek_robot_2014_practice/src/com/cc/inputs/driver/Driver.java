@@ -7,7 +7,7 @@ import com.cc.utility.Utility;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- *
+ *  
  * @author TestingMachine
  */
 public class Driver
@@ -17,27 +17,27 @@ public class Driver
     private static Driver instance = null;
     
     //airplane controler constants
-//    private final double XMIN = -0.71875;
-//    private final double XMAX = 0.8031496062992126;
-//    private final double YMAX = -0.59375;
-//    private final double YMIN = 0.69291;
-//    private final double ROTMAX = 0.84252;
-//    private final double ROTMIN = -0.67188;
-//    private final double XCENTER = 0.0;
-//    private final double YCENTER = 0.00787;
-//    private final double ROTCENTER = 0.03937;
+    private final double XMIN = -0.71875;
+    private final double XMAX = 0.8031496062992126;
+    private final double YMAX = -0.59375;
+    private final double YMIN = 0.69291;
+    private final double ROTMAX = 0.84252;
+    private final double ROTMIN = -0.67188;
+    private final double XCENTER = 0.0;
+    private final double YCENTER = 0.00787;
+    private final double ROTCENTER = 0.03937;
     
     
     //joystick constants
-    private final double XMIN = -1.0;
-    private final double XMAX = 1.0;
-    private final double YMAX = -1.0;
-    private final double YMIN = 1.0;
-    private final double ROTMAX = 1.0;
-    private final double ROTMIN = -1.0;
-    private final double XCENTER = 0.0;
-    private final double YCENTER = 0.0;
-    private final double ROTCENTER = 0.0;
+//    private final double XMIN = -1.0;
+//    private final double XMAX = 1.0;
+//    private final double YMAX = -1.0;
+//    private final double YMIN = 1.0;
+//    private final double ROTMAX = 1.0;
+//    private final double ROTMIN = -1.0;
+//    private final double XCENTER = 0.0;
+//    private final double YCENTER = 0.0;
+//    private final double ROTCENTER = 0.0;
     
     private Driver()
     {
@@ -69,21 +69,22 @@ public class Driver
     public double getX () // Gets the X
     {
         double xValue = normalize( joyOne.getRawAxis( 1 ) , XMIN , XMAX, XCENTER);
+        xValue = xValue*xValue*xValue;
         return xValue;
     }
     
     public double getY () // Gets the Y
     {
         double yValue = normalize( joyOne.getRawAxis( 2 ) , YMIN , YMAX, YCENTER);
+        yValue = yValue*yValue*yValue;
         return yValue;
     }
     
      public double getRot () // Gets the Rotational Input
     {
-         
-        //airplane controler rot axis is channel 5
-         
-        double rotValue = normalize( joyTwo.getRawAxis( 1 ) , ROTMIN , ROTMAX, ROTCENTER);
+        double rotValue = normalize( joyOne.getRawAxis( 5 ) , ROTMIN , ROTMAX, ROTCENTER);
+        //double rotValue = normalize( joyTwo.getRawAxis( 1 ) , ROTMIN , ROTMAX, ROTCENTER);
+        rotValue = rotValue*rotValue*rotValue;
         return rotValue;
     }
     
